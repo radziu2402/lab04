@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="lab04" options="--add-exports java.desktop/sun.swing=grafikaSWING --add-exports java.base/sun.reflect.misc=grafikaSWING" />
+      <module name="lab04" options="" />
     </option>
   </component>
 </project>

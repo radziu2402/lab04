@@ -27,13 +27,19 @@ public class MainFrame extends JFrame {
 	private static final JTextField l2 = new JTextField();
 	private static final JTextField d = new JTextField();
 	private static final JTextField h = new JTextField();
+	private static final JPanel empty1 = new JPanel();
+	private static final XYLineChart_AWT chartTop = new XYLineChart_AWT("Wykres składowej Vx predkości","Vx");
+	private static final XYLineChart_AWT chartBot = new XYLineChart_AWT("Wykres składowej Vy predkości","Vy");
 
 	private static boolean exit;
 
 	public static void main(String[] args) {
 
+
 		SwingUtilities.invokeLater(() -> {
 			MainFrame thisClass = new MainFrame();
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			thisClass.setLocation(dim.width/2-thisClass.getSize().width/2, dim.height/2-thisClass.getSize().height/2);
 			thisClass.setTitle("Lab04");
 			thisClass.setVisible(true);
 
@@ -44,9 +50,16 @@ public class MainFrame extends JFrame {
 				startButton.setEnabled(true);
 				exit = false;
 				SwingUtilities.updateComponentTreeUI(thisClass);
-				Manipulator.setJ(1);
-				if(mid != null) contentPane.remove(mid);
+				if(mid != null){
+					contentPane.remove(mid);
+				}
 				contentPane.add(empty);
+				right.removeAll();
+				right.revalidate();
+				chartTop.deleteSeries();
+				chartBot.deleteSeries();
+				Manipulator.alpha = 0;
+				Manipulator.beta = 0;
 			});
 
 			startButton.addActionListener(e -> {
@@ -56,13 +69,26 @@ public class MainFrame extends JFrame {
 				else{
 					return;
 				}
+
+				if(Integer.parseInt(d.getText()) > 390 || Integer.parseInt(h.getText()) > 370
+						|| Integer.parseInt(l2.getText()) - Integer.parseInt(l1.getText()) < Math.sqrt(Math.pow(Integer.parseInt(h.getText()),2)+Math.pow(Integer.parseInt(d.getText()),2))
+						|| Math.sqrt(Math.pow(Integer.parseInt(h.getText()),2)+Math.pow(Integer.parseInt(d.getText()),2)) < Integer.parseInt(l1.getText())){
+					return;
+				}
 				thisClass.animate();
 				startButton.setEnabled(false);
 				contentPane.remove(empty);
-				SwingUtilities.updateComponentTreeUI(thisClass);
-				mid.setPreferredSize(new Dimension(715, 800));
-				mid.setBackground(Color.ORANGE);
+				mid.setPreferredSize(new Dimension(710,800));
+				mid.setBackground(new Color(240,248,255));
 				contentPane.add(mid);
+				right.add(rightTop);
+				right.add(rightBot);
+				chartTop.setVisible(true);
+				chartTop.setPreferredSize(new Dimension(440,400));
+				chartBot.setVisible(true);
+				chartBot.setPreferredSize(new Dimension(440,400));
+				rightTop.add(chartTop);
+				rightBot.add(chartBot);
 			});
 
 		});
@@ -72,10 +98,20 @@ public class MainFrame extends JFrame {
 		exit = true;
 		Thread t = new Thread(() -> {
 			int i = 360;
+			double beforeXCoords = 0;
+			double beforeYCoords = 0;
 			while (i>0 && exit) {
 				mid.g.rotate();
 				mid.repaint();
 				mid.revalidate();
+				if(i==360){
+					beforeXCoords = Manipulator.getXCoords();
+					beforeYCoords = Manipulator.getYCoords();
+				}
+				chartTop.updateSeries(Manipulator.getXCoords() - beforeXCoords,Manipulator.getAngle());
+				chartBot.updateSeries(Manipulator.getYCoords() - beforeYCoords,Manipulator.getAngle());
+				beforeXCoords = Manipulator.getXCoords();
+				beforeYCoords = Manipulator.getYCoords();
 				i--;
 				try {
 					Thread.sleep(20);
@@ -98,17 +134,13 @@ public class MainFrame extends JFrame {
 		left.setPreferredSize(new Dimension(220, 800));
 
 		right.setPreferredSize(new Dimension(435, 800));
-		right.setBackground(Color.RED);
 		right.setLayout(new BoxLayout(right,BoxLayout.Y_AXIS));
 
 		rightTop.setPreferredSize(new Dimension(435, 330));
-		rightTop.setBackground(Color.pink);
-
 		rightBot.setPreferredSize(new Dimension(435, 365));
-		rightBot.setBackground(Color.blue);
 
-		empty.setPreferredSize(new Dimension(715, 800));
-		empty.setBackground(Color.orange);
+		empty.setPreferredSize(new Dimension(710, 800));
+		empty1.setPreferredSize(new Dimension(435, 330));
 
 		l1.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent ke) {
@@ -153,8 +185,6 @@ public class MainFrame extends JFrame {
 		left.add(h);
 		left.add(startButton);
 		left.add(resetButton);
-		right.add(rightTop);
-		right.add(rightBot);
 		contentPane.add(left);
 		contentPane.add(right);
 		contentPane.add(empty);
