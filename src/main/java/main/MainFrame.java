@@ -97,19 +97,21 @@ public class MainFrame extends JFrame {
 	public void animate() {
 		exit = true;
 		Thread t = new Thread(() -> {
-			int i = 360;
+			int i = 720;
 			double beforeXCoords = 0;
 			double beforeYCoords = 0;
 			while (i>0 && exit) {
 				mid.g.rotate();
 				mid.repaint();
 				mid.revalidate();
-				if(i==360){
+				if(i==720){
 					beforeXCoords = Manipulator.getXCoords();
 					beforeYCoords = Manipulator.getYCoords();
 				}
-				chartTop.updateSeries(Manipulator.getXCoords() - beforeXCoords,Manipulator.getAngle());
-				chartBot.updateSeries(Manipulator.getYCoords() - beforeYCoords,Manipulator.getAngle());
+				if(i!=720) {
+					chartTop.updateSeries(Manipulator.getXCoords() - beforeXCoords, Manipulator.getAngle());
+					chartBot.updateSeries(Manipulator.getYCoords() - beforeYCoords, Manipulator.getAngle());
+				}
 				beforeXCoords = Manipulator.getXCoords();
 				beforeYCoords = Manipulator.getYCoords();
 				i--;

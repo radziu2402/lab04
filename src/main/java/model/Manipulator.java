@@ -65,10 +65,9 @@ public class Manipulator extends GObject {
 		g.drawPolyline(xs,ys,3);
 	}
 
-
 	@Override
 	public void rotate() {
-		alpha += Math.PI / 180.0;
+		alpha += Math.PI / 360.0;
 		double ay = l1 * Math.sin(alpha);
 		double ax = l1 * Math.cos(alpha);
 		beta = Math.atan2(h-ay,d-ax) - alpha;

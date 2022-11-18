@@ -15,7 +15,7 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import javax.swing.*;
 
 public class XYLineChart_AWT extends JPanel{
-    private XYSeries velocity = new XYSeries("velocity",false,false);
+    private XYSeries velocity = new XYSeries("velocity",false,true);
 
 
     public XYLineChart_AWT(String chartTitle, String xLabel){
