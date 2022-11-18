@@ -41,7 +41,7 @@ public class Manipulator extends GObject {
 		drawArrow(g2d,0,375,0,380,10,45);
 		g2d.drawOval(-l1,-l1,2*l1,2*l1);
 		g2d.setStroke(new BasicStroke(10));
-		g2d.drawPolygon(new int[] {d-7, d, d+7}, new int[] {h-15, h-3, h-15}, 3);
+		g2d.drawPolygon(new int[] {d-5, d, d+5}, new int[] {h-15, h-5, h-15}, 3);
 		t.rotate(alpha);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.setTransform(t);

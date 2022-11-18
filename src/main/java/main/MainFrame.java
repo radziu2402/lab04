@@ -27,7 +27,6 @@ public class MainFrame extends JFrame {
 	private static final JTextField l2 = new JTextField();
 	private static final JTextField d = new JTextField();
 	private static final JTextField h = new JTextField();
-	private static final JPanel empty1 = new JPanel();
 	private static final XYLineChart_AWT chartTop = new XYLineChart_AWT("Wykres składowej Vx predkości","Vx");
 	private static final XYLineChart_AWT chartBot = new XYLineChart_AWT("Wykres składowej Vy predkości","Vy");
 
@@ -142,7 +141,6 @@ public class MainFrame extends JFrame {
 		rightBot.setPreferredSize(new Dimension(435, 365));
 
 		empty.setPreferredSize(new Dimension(710, 800));
-		empty1.setPreferredSize(new Dimension(435, 330));
 
 		l1.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent ke) {
