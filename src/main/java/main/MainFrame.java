@@ -9,7 +9,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.Serial;
 
-
+//komendy uruchamiajace i kompilujace kod:
+//mvn compile - kompiluje kod
+//mvn package - tworzy jar
+//java -cp target/lab04-1.0-SNAPSHOT.jar main.MainFrame  - uruchamia jar
 public class MainFrame extends JFrame {
 
 	@Serial
