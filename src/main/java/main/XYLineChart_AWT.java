@@ -15,14 +15,14 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import javax.swing.*;
 
 public class XYLineChart_AWT extends JPanel{
-    private XYSeries velocity = new XYSeries("velocity",false,true);
+    private final XYSeries velocity = new XYSeries("velocity",false,true);
 
 
-    public XYLineChart_AWT(String chartTitle, String xLabel){
+    public XYLineChart_AWT(String chartTitle, String yLabel){
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
                 chartTitle,
-                xLabel,
                 "kąt obrotu [stopnie]",
+                yLabel,
                 createDataset(),
                 PlotOrientation.VERTICAL,
                 false, true, false);
@@ -44,8 +44,8 @@ public class XYLineChart_AWT extends JPanel{
         return dataset;
     }
 
-    public void updateSeries(double x, double angle){
-        velocity.add(x,angle);
+    public void updateSeries(double y, double angle){
+        velocity.add(angle,y);
     }
     public void deleteSeries(){
         velocity.clear();

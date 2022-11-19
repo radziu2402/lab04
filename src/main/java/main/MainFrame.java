@@ -72,6 +72,7 @@ public class MainFrame extends JFrame {
 				if(Integer.parseInt(d.getText()) > 390 || Integer.parseInt(h.getText()) > 370
 						|| Integer.parseInt(l2.getText()) - Integer.parseInt(l1.getText()) < Math.sqrt(Math.pow(Integer.parseInt(h.getText()),2)+Math.pow(Integer.parseInt(d.getText()),2))
 						|| Math.sqrt(Math.pow(Integer.parseInt(h.getText()),2)+Math.pow(Integer.parseInt(d.getText()),2)) < Integer.parseInt(l1.getText())){
+					JOptionPane.showMessageDialog(thisClass, "Źle dobrane paramatery! Wpisz jeszcze raz");
 					return;
 				}
 				thisClass.animate();
